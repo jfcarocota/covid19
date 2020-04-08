@@ -55,7 +55,7 @@ export default class App extends Component{
       data: {
           labels: arr_dates,
           datasets: [{
-              label: 'Casos confirmados',
+              label: 'Casos confirmados (hasta el día de hoy)',
               fill: false,
               data: arr_cofirmed,
               backgroundColor: 'rgba(0, 0, 255, 1)',
@@ -63,7 +63,7 @@ export default class App extends Component{
               borderWidth: 2
           },
           {
-            label: 'Fallecimientos',
+            label: 'Fallecimientos (hasta el día de hoy)',
             fill: false,
             data: arr_deaths,
             backgroundColor: 'rgba(255, 0, 0, 1)',
@@ -71,7 +71,7 @@ export default class App extends Component{
             borderWidth: 2
         },
         {
-          label: 'Pacientes recuperados',
+          label: 'Pacientes recuperados (hasta el día de hoy)',
           fill: false,
           data: arr_recovereds,
           backgroundColor: 'rgba(0, 255, 0, 1)',
