@@ -74,8 +74,27 @@ export default class Map extends Component{
                     paint: {
                         "circle-opacity": 0.75,
                         "circle-stroke-width": 1,
+                        "circle-stroke-width": [
+                            "interpolate",
+                            ["linear"],
+                            ["get", "cases"],
+                            1, 1,
+                            100000, 1.75,
+                        ],
                         "circle-radius": 4,
                         "circle-color": "#FFEB3B",
+                        "circle-color": [
+                            "interpolate",
+                            ["linear"],
+                            ["get", "cases"],
+                            1, '#ffffb2',
+                            5000, '#fed976',
+                            10000, '#feb24c',
+                            25000, '#fd8d3c',
+                            50000, '#fc4e2a',
+                            75000, '#e31a1c',
+                            100000, '#b10026'
+                        ],
                         "circle-radius": [
                             "interpolate",
                             ["linear"],
