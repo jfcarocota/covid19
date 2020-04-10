@@ -31,7 +31,7 @@ export default class App extends Component{
   render() {
     const {data, arr} = this.state;
     const {date, confirmed, deaths, recovered} = data;
-    console.log(this.state);
+    //console.log(this.state);
 
     const arr_cofirmed = arr.map(e =>{
       return e.confirmed;
@@ -110,6 +110,7 @@ export default class App extends Component{
                 <br/>
                 <canvas id="myChart" ref={c => this.canvas = c} width="400" height="400"></canvas>
                 <br/>
+                <h1>Covid19 en el mundo</h1>
                 <Map/>
                 <br/>
                 <footer>Datos tomados de "The Center for Systems Science and Engineering (CSSE) at JHU", public api: https://github.com/pomber/covid19</footer>

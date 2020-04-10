@@ -1,4 +1,4 @@
-import React, {Component, useRef, useEffect, createRef} from 'react';
+import React, {Component, useRef, createRef} from 'react';
 import mapboxgl from "mapbox-gl";
 import useSWR from "swr"; // React hook to fetch the data
 import lookup from "country-code-lookup"; // npm module to get ISO Code for countries
@@ -17,36 +17,24 @@ export default class Map extends Component{
         this.state = {
             lng: -102.10232,
             lat: 23.68367,
-            zoom: 4.60
+            zoom: 4.60,
+            data: []
         }
     }
 
     componentDidMount(){
         const url = 'https://corona.lmao.ninja/v2/jhucsse';
 
-        fetch(url)
-        .then(r => r.json())
-        .then(data =>
-            data.map((point, index) => ({
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [
-                point.coordinates.longitude,
-                point.coordinates.latitude
-                ]
-            },
-            properties: {
-                id: index, // unique identifier in this case the index
-                country: point.country,
-                province: point.province,
-                cases: point.stats.confirmed,
-                deaths: point.stats.deaths
-            }
-        })));
-    }
+        fetch(url).then(r => r.json()).then(data => {
+            
+            data.map(country =>{
+                console.log(country);
+            })
+        });
 
-    componentDidMount(){
+        console.log(this.state.data);
+
+
         const map = new mapboxgl.Map({
             container: this.mapContainer,
             style: 'mapbox://styles/mapbox/streets-v11',
