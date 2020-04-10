@@ -17,7 +17,7 @@ export default class Map extends Component{
         this.state = {
             lng: -102.10232,
             lat: 23.68367,
-            zoom: 4.60,
+            zoom: 3.60,
         }
     }
 
@@ -72,10 +72,21 @@ export default class Map extends Component{
                     type: "circle",
                     // paint properties
                     paint: {
-                      "circle-opacity": 0.75,
-                      "circle-stroke-width": 1,
-                      "circle-radius": 4,
-                      "circle-color": "#FFEB3B"
+                        "circle-opacity": 0.75,
+                        "circle-stroke-width": 1,
+                        "circle-radius": 4,
+                        "circle-color": "#FFEB3B",
+                        "circle-radius": [
+                            "interpolate",
+                            ["linear"],
+                            ["get", "cases"],
+                            1, 4,
+                            1000, 8,
+                            4000, 10,
+                            8000, 14,
+                            12000, 18,
+                            100000, 40
+                        ]
                     }
                 });
             });
