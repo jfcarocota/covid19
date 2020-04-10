@@ -25,22 +25,44 @@ export default class Map extends Component{
     componentDidMount(){
         const url = 'https://corona.lmao.ninja/v2/jhucsse';
 
-        fetch(url).then(r => r.json()).then(data => {
-            
-            data.map(country =>{
-                console.log(country);
-            })
-        });
-
-        console.log(this.state.data);
-
-
         const map = new mapboxgl.Map({
             container: this.mapContainer,
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [this.state.lng, this.state.lat],
             zoom: this.state.zoom
         });
+
+        fetch(url).then(r => r.json()).then(data => {
+            
+            const points = data.map((point, index) =>{
+                //console.log(country);
+                const {stats, coordinates, province, country} = point;
+                const {latitude, longitude} = coordinates;
+                const {confirmed, deaths, recovered} = stats;
+                return {
+                    type: "Feature",
+                    geometry: {
+                        type: "Point",
+                        coordinates: [
+                            longitude,
+                            latitude
+                        ]
+                    },
+                    properties: {
+                        id: index, // unique identifier in this case the index
+                        country: country,
+                        province: province,
+                        cases: confirmed,
+                        deaths: deaths
+                    }
+                } 
+            });
+
+            console.log(points);
+        });
+
+        console.log(this.state.data);
+
     }
 
     render() {
