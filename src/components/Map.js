@@ -18,7 +18,6 @@ export default class Map extends Component{
             lng: -102.10232,
             lat: 23.68367,
             zoom: 4.60,
-            data: []
         }
     }
 
@@ -38,7 +37,7 @@ export default class Map extends Component{
                 //console.log(country);
                 const {stats, coordinates, province, country} = point;
                 const {latitude, longitude} = coordinates;
-                const {confirmed, deaths, recovered} = stats;
+                const {confirmed, deaths} = stats;
                 return {
                     type: "Feature",
                     geometry: {
@@ -58,11 +57,31 @@ export default class Map extends Component{
                 } 
             });
 
-            console.log(points);
+            map.once('load', ()=>{
+                map.addSource("points", {
+                    type: "geojson",
+                    data: {
+                      type: "FeatureCollection",
+                      features: points
+                    }
+                });
+
+                map.addLayer({
+                    id: "circles",
+                    source: "points", // this should be the id of the source
+                    type: "circle",
+                    // paint properties
+                    paint: {
+                      "circle-opacity": 0.75,
+                      "circle-stroke-width": 1,
+                      "circle-radius": 4,
+                      "circle-color": "#FFEB3B"
+                    }
+                });
+            });
+
+            //console.log(points);
         });
-
-        console.log(this.state.data);
-
     }
 
     render() {
