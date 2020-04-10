@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Chart from 'chart.js';
+import Map from './components/Map';
 
 export default class App extends Component{
 
@@ -108,6 +109,8 @@ export default class App extends Component{
                 <div className="text-secondary"><strong>Pacientes recuperados</strong></div>
                 <br/>
                 <canvas id="myChart" ref={c => this.canvas = c} width="400" height="400"></canvas>
+                <br/>
+                <Map/>
                 <br/>
                 <footer>Datos tomados de "The Center for Systems Science and Engineering (CSSE) at JHU", public api: https://github.com/pomber/covid19</footer>
               </div>
