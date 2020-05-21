@@ -110,6 +110,69 @@ export default class Map extends Component{
                 });
             });
 
+            const popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
+
+            let lastId;
+
+            map.on("mousemove", "circles", e => {
+                // Get the id from the properties
+                const id = e.features[0].properties.id;
+              
+                // Only if the id are different we process the tooltip
+                if (id !== lastId) {
+                  lastId = id;
+              
+                  // Change the pointer type on move move
+                  map.getCanvas().style.cursor = "pointer";
+              
+                  const { cases, deaths, country, province } = e.features[0].properties;
+                  const coordinates = e.features[0].geometry.coordinates.slice();
+              
+                  // Get all data for the tooltip
+                  const countryISO =
+                    lookup.byCountry(country)?.iso2 || lookup.byInternet(country)?.iso2;
+              
+                  const provinceHTML =
+                    province !== "null" ? `<p>Province: <b>${province}</b></p>` : "";
+              
+                  const mortalityRate = ((deaths / cases) * 100).toFixed(2);
+              
+                  const countryFlagHTML = Boolean(countryISO)
+                    ? `<img src="https://www.countryflags.io/${countryISO}/flat/64.png"></img>`
+                    : "";
+              
+                  const HTML = `<p>País: <b>${country}</b></p>
+                            ${provinceHTML}
+                            <p>Casos: <b>${cases}</b></p>
+                            <p>Muertes: <b>${deaths}</b></p>
+                            <p>Tasa de mortalidad: <b>${mortalityRate}%</b></p>
+                            ${countryFlagHTML}`;
+              
+                  // Ensure that if the map is zoomed out such that multiple
+                  // copies of the feature are visible, the popup appears
+                  // over the copy being pointed to.
+                  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                  }
+              
+                  popup
+                    .setLngLat(coordinates)
+                    .setHTML(HTML)
+                    .addTo(map);
+                }
+            });
+
+            map.on("mouseleave", "circles", function() {
+                // Reset the last Id
+                lastId = undefined;
+                map.getCanvas().style.cursor = "";
+                popup.remove();
+            });
+
+
             //console.log(points);
         });
     }
