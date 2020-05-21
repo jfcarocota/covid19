@@ -136,7 +136,7 @@ export default class Map extends Component{
                     lookup.byCountry(country)?.iso2 || lookup.byInternet(country)?.iso2;
               
                   const provinceHTML =
-                    province !== "null" ? `<p>Province: <b>${province}</b></p>` : "";
+                    province !== "null" ? `<p>Provincia: <b>${province}</b></p>` : "";
               
                   const mortalityRate = ((deaths / cases) * 100).toFixed(2);
               

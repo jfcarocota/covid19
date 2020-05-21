@@ -52,6 +52,14 @@ export default class ChartLine extends Component{
                 backgroundColor: 'rgba(0, 255, 0, 1)',
                 borderColor: 'rgba(0, 255, 0, 255)',
                 borderWidth: 2
+                },
+                {
+                label: 'Casos confirmados por día',
+                fill: false,
+                data: recovereds,
+                backgroundColor: 'rgba(255, 255, 0, 1)',
+                borderColor: 'rgba(255, 255, 0, 255)',
+                borderWidth: 2
             }]
             },
             options: {

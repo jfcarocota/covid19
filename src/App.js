@@ -37,6 +37,16 @@ export default class App extends Component{
       return e.confirmed;
     });
 
+
+
+    const arr_cofirmed_per_day = [];
+
+    for(let i = 0; i < arr_cofirmed.length; i++){
+      if(i > 0){
+        arr_cofirmed_per_day.push(arr_cofirmed[i] - arr_cofirmed[i - 1]);
+      }
+    }
+
     const arr_dates = arr.map(e =>{
       return e.date;
     });
@@ -78,6 +88,14 @@ export default class App extends Component{
           backgroundColor: 'rgba(0, 255, 0, 1)',
           borderColor: 'rgba(0, 255, 0, 255)',
           borderWidth: 2
+      },
+      {
+        label: 'Casos confirmados por día',
+        fill: false,
+        data: arr_cofirmed_per_day,
+        backgroundColor: 'rgba(255, 0, 255, 1)',
+        borderColor: 'rgba(255, 0, 255, 255)',
+        borderWidth: 2
       }]
       },
       options: {
