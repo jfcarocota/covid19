@@ -55,10 +55,25 @@ export default class App extends Component{
       return e.deaths;
     });
 
+    const arr_deaths_per_day = [];
+
+    for(let i = 0; i < arr_deaths.length; i++){
+      if(i > 0){
+        arr_deaths_per_day.push(arr_deaths[i] - arr_deaths[i - 1]);
+      }
+    }
+
     const arr_recovereds = arr.map(e =>{
       return e.recovered;
     });
     
+    const arr_recovereds_per_day = [];
+
+    for(let i = 0; i < arr_recovereds.length; i++){
+      if(i > 0){
+        arr_recovereds_per_day.push(arr_recovereds[i] - arr_recovereds[i - 1]);
+      }
+    }
 
 
     const myChart = new Chart(this.state.context, {
@@ -96,7 +111,23 @@ export default class App extends Component{
         backgroundColor: 'rgba(255, 0, 255, 1)',
         borderColor: 'rgba(255, 0, 255, 255)',
         borderWidth: 2
-      }]
+      },
+      {
+        label: 'Muertes por día',
+        fill: false,
+        data: arr_deaths_per_day,
+        backgroundColor: 'rgba(150, 0, 100, 1)',
+        borderColor: 'rgba(150, 0, 100, 255)',
+        borderWidth: 2
+      },
+      {
+        label: 'Pacientes recuperados por día',
+        fill: false,
+        data: arr_recovereds_per_day,
+        backgroundColor: 'rgba(0, 150, 100, 1)',
+        borderColor: 'rgba(0, 150, 100, 255)',
+        borderWidth: 2
+    }]
       },
       options: {
           scales: {
@@ -126,6 +157,7 @@ export default class App extends Component{
                 <div className="display-1">{recovered}</div>
                 <div className="text-secondary"><strong>Pacientes recuperados</strong></div>
                 <br/>
+                <strong>Has click en los botones de colores para ver u ocultar las graficas</strong>
                 <canvas id="myChart" ref={c => this.canvas = c} width="400" height="400"></canvas>
                 <br/>
                 <h1>Covid19 en el mundo</h1>
